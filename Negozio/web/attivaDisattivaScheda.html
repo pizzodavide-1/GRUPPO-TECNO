@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Change stato scheda</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <form action="statoScheda" method="POST">
+        <table border="1">
+            <tr> STATO SCHEDA</tr>
+            <tr>
+                <td>Nome</td>
+                <td><input type="text" placeholder="Inserisce codice scheda" name="idScehda"></td>
+            </tr>
+            <tr>
+                <td>Stato</td>
+                <td>
+                    <select name="stato">
+                        <option value="TRUE">Attiva</option>
+                        <option value="FALSE">Disattiva</option>
+                    </select>
+                </td>
+            </tr>
+            <td><input type="submit" value="INVIA"><td>
+        </table>
+            </form>
+    </body>
+</html>
