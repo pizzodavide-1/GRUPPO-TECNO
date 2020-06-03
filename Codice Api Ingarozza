@@ -1,0 +1,45 @@
+ /*
+    visualizza i dati dello stato di una scheda
+     */
+    @GET
+    @Path("richiestaJSON/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getRichiestaJSONDaId(@PathParam("id") String id) {
+        init();
+        String output = "";
+        if (!connected) {
+            return "<errorMessage>400</errorMessage>";
+        } else {
+            try {
+                Richiesta richiesta = new Richiesta();
+                String sql = "SELECT statoBatteria FROM schede where idRichiesta ='" + id + "'";
+                Statement statement = spesaDatabase.createStatement();
+                ResultSet result = statement.executeQuery(sql);
+
+                result.next();
+                richiesta.setScheda(result.getInt(1));
+                richiesta.setScheda(result.getString(2));
+
+                result.close();
+                statement.close();
+
+                if (richiesta.getRifScheda() != -1) {
+                    output = "{\"richiesta\":{\n";
+                    output = output + "\"rifSchede\":\"" + richiesta.getRifSchede() + "\",\n";
+                    output = output + "\"statoBatteria\":\"" + richiesta.getstatoBatteria() + "\",\n";
+                    output = output + "}\n}";
+
+                } else {
+                    destroy();
+                    return "<errorMessage>404</errorMessage>";
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Api.class.getName()).log(Level.SEVERE, null, ex);
+                destroy();
+                return "<errorMessage>500</errorMessage>";
+            }
+            destroy();
+            return output;
+        }
+    }
